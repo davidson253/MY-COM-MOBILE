@@ -1,0 +1,76 @@
+/* RepresentantInfo Component Styles */
+
+.representant-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+.representant-label {
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
+  margin-bottom: 2px;
+}
+
+.representant-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.representant-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.representant-libelle {
+  font-size: 0.9em;
+  color: var(--color-text);
+  margin-left: 22px;
+}
+
+/* Compact version */
+.representant-info-compact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.representant-info-compact .representant-code {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.representant-info-compact .representant-libelle {
+  color: var(--color-text-secondary);
+}
+
+/* In table cells */
+.representant-info-table {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.representant-info-table .representant-code {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.representant-info-table .representant-libelle {
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
+}

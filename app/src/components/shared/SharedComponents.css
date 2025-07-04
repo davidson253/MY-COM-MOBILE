@@ -1,0 +1,620 @@
+/* SharedComponents.css - Styles des composants réutilisables basés sur Commandes.css */
+
+/* ===== BOUTONS PRINCIPAUX - IDENTIQUE À COMMANDES ===== */
+.shared-btn,
+.shared-button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: var(--theme-border-radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--theme-transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  text-shadow: var(--theme-text-shadow);
+  box-shadow: var(--theme-depth-2);
+  font-family: var(--theme-font-family);
+  position: relative;
+  overflow: hidden;
+}
+
+.shared-btn:hover,
+.shared-button:hover {
+  transform: var(--theme-hover-scale) translateY(-2px);
+  box-shadow: var(--theme-depth-3);
+}
+
+.shared-btn:active,
+.shared-button:active {
+  transform: scale(0.98) translateY(0);
+  box-shadow: var(--theme-depth-1);
+}
+
+.shared-btn-primary,
+.shared-button-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-primary-hover)
+  );
+  color: white;
+  box-shadow: var(--theme-depth-2);
+}
+
+.shared-btn-primary:hover,
+.shared-button-primary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-hover),
+    var(--color-primary-dark)
+  );
+  box-shadow: var(--theme-depth-3), var(--theme-glow-effect);
+}
+
+.shared-btn-secondary,
+.shared-button-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-secondary-hover)
+  );
+  color: white;
+  box-shadow: var(--theme-depth-2);
+}
+
+.shared-btn-secondary:hover,
+.shared-button-secondary:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary-hover),
+    var(--color-secondary)
+  );
+  box-shadow: var(--theme-depth-3);
+}
+
+/* ===== BOUTONS D'ACTION ===== */
+.shared-action-button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: var(--theme-border-radius);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 4px;
+  transition: var(--theme-transition);
+  text-shadow: var(--theme-text-shadow);
+  box-shadow: var(--theme-depth-1);
+  font-family: var(--theme-font-family);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.shared-action-button:hover {
+  transform: var(--theme-hover-scale) translateY(-1px);
+  box-shadow: var(--theme-depth-2);
+}
+
+.shared-action-button:active {
+  transform: scale(0.95);
+  box-shadow: var(--theme-depth-1);
+}
+
+.shared-action-button--view {
+  background: linear-gradient(
+    135deg,
+    var(--color-success),
+    var(--color-success-hover)
+  );
+  color: white;
+}
+
+.shared-action-button--view:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-success-hover),
+    var(--color-success)
+  );
+  box-shadow: var(--theme-depth-2), 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.shared-action-button--edit {
+  background: linear-gradient(
+    135deg,
+    var(--color-warning),
+    var(--color-warning-hover)
+  );
+  color: white;
+}
+
+.shared-action-button--edit:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-warning-hover),
+    var(--color-warning)
+  );
+  box-shadow: var(--theme-depth-2), 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.shared-action-button--delete {
+  background: linear-gradient(
+    135deg,
+    var(--color-danger),
+    var(--color-danger-hover)
+  );
+  color: white;
+}
+
+.shared-action-button--delete:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-danger-hover),
+    var(--color-danger)
+  );
+  box-shadow: var(--theme-depth-2), 0 0 15px rgba(239, 68, 68, 0.3);
+}
+
+/* États désactivés */
+.shared-button-disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+  background: var(--theme-disabled-color) !important;
+  color: var(--theme-disabled-text) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--theme-disabled-border) !important;
+}
+
+.shared-button-disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background: var(--theme-disabled-color) !important;
+}
+
+/* Conteneur des boutons d'action */
+.shared-actions-container {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== BARRE DE RECHERCHE ===== */
+.shared-search-container {
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+}
+
+.shared-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--theme-search-icon-color);
+  z-index: 1;
+  transition: var(--theme-transition);
+}
+
+.shared-search-input {
+  width: 100%;
+  padding: 12px 12px 12px 45px;
+  border: 2px solid var(--theme-search-border);
+  border-radius: var(--theme-border-radius);
+  font-size: 14px;
+  background: var(--theme-search-bg);
+  color: var(--theme-search-color);
+  transition: var(--theme-transition);
+  font-family: var(--theme-font-family);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--theme-depth-1);
+}
+
+.shared-search-input:focus {
+  outline: none;
+  border-color: var(--theme-primary-color);
+  box-shadow: 0 0 0 3px var(--theme-primary-shadow), var(--theme-depth-2);
+  background: var(--theme-search-focus-bg);
+  transform: translateY(-1px);
+}
+
+.shared-search-input:focus + .shared-search-icon {
+  color: var(--theme-primary-color);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.shared-search-input::placeholder {
+  color: var(--theme-search-placeholder);
+  font-style: italic;
+}
+
+/* ===== FILTRES ===== */
+.shared-filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.shared-filter-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shared-filter-icon {
+  color: var(--theme-filter-icon-color);
+  margin-right: 8px;
+  transition: var(--theme-transition);
+}
+
+.shared-filter-select {
+  padding: 12px 16px;
+  border: 2px solid var(--theme-search-border);
+  border-radius: var(--theme-border-radius);
+  font-size: 14px;
+  background: var(--theme-search-bg);
+  color: var(--theme-search-color);
+  cursor: pointer;
+  transition: var(--theme-transition);
+  min-width: 150px;
+  font-family: var(--theme-font-family);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--theme-depth-1);
+}
+
+.shared-filter-select:focus {
+  border-color: var(--theme-primary-color);
+  box-shadow: 0 0 0 3px var(--theme-primary-shadow), var(--theme-depth-2);
+  background: var(--theme-search-focus-bg);
+  transform: translateY(-1px);
+}
+
+.shared-clear-filters {
+  background: var(--theme-error-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--theme-transition);
+  box-shadow: var(--theme-depth-1);
+}
+
+.shared-clear-filters:hover {
+  background: var(--theme-error-hover-color);
+  transform: scale(1.1);
+  box-shadow: var(--theme-depth-2);
+}
+
+/* ===== BADGES ===== */
+.shared-badge {
+  background-color: var(--color-bg-badge);
+  color: var(--color-text-badge);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--theme-font-family);
+  text-shadow: var(--theme-text-shadow);
+  box-shadow: var(--theme-depth-1);
+  transition: var(--theme-transition);
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--theme-badge-border);
+  backdrop-filter: blur(4px);
+}
+
+.shared-badge:hover {
+  transform: scale(1.05);
+  box-shadow: var(--theme-depth-2);
+}
+
+/* Effet de brillance sur les badges */
+.shared-badge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.shared-badge:hover::before {
+  left: 100%;
+}
+
+/* ===== CONTENEURS ET UTILITAIRES ===== */
+.shared-flex-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===== CODE BADGE ===== */
+.shared-code-badge {
+  font-weight: 600;
+  color: var(--theme-code-color);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--theme-transition);
+}
+
+.shared-code-badge .status-indicator {
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+/* ===== TABLEAU ===== */
+.shared-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-bg-card);
+  border-radius: var(--theme-border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.shared-table th {
+  background: var(--theme-table-header-bg);
+  color: var(--theme-table-header-text);
+  padding: 16px;
+  text-align: left;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--color-primary);
+  transition: var(--theme-transition);
+}
+
+.shared-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--theme-table-border-light);
+  color: var(--theme-text-neutral);
+  font-size: var(--font-size-sm);
+  transition: var(--theme-transition);
+}
+
+.shared-table tr {
+  transition: var(--theme-transition);
+}
+
+.shared-table tr:hover {
+  background: var(--theme-table-hover);
+  transform: var(--theme-hover-transform);
+}
+
+.shared-table tr:nth-child(even) {
+  background: var(--theme-table-stripe-even);
+}
+
+.shared-table tr:nth-child(odd) {
+  background: var(--theme-table-stripe-odd);
+}
+
+/* Classes de statut pour les lignes - Identique à Commandes.css */
+.shared-table tr.clients.row--editing {
+  background-color: var(--color-bg-status-editing) !important;
+  border-left: 4px solid var(--color-border-status-editing);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+  position: relative;
+}
+
+.shared-table tr.clients.row--editing:hover {
+  background-color: var(--color-bg-status-editing) !important;
+}
+
+.shared-table tr.clients.row--viewing {
+  background-color: var(--color-bg-status-viewing) !important;
+  border-left: 4px solid var(--color-border-status-viewing);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+  position: relative;
+}
+
+.shared-table tr.clients.row--viewing:hover {
+  background-color: var(--color-bg-status-viewing) !important;
+}
+
+/* ===== CARTES ===== */
+.shared-card {
+  background: var(--color-bg-card);
+  border-radius: var(--theme-border-radius);
+  padding: var(--spacing-xl);
+  box-shadow: var(--theme-shadow);
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--color-border);
+  transition: var(--theme-transition);
+}
+
+.shared-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: var(--theme-hover-transform);
+}
+
+.shared-card.theme-immersive-card {
+  background: var(--color-bg-card);
+  box-shadow: var(--theme-shadow);
+  border: 1px solid var(--color-border);
+}
+
+.shared-card-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: var(--theme-transition);
+}
+
+/* ===== ÉTAT VIDE ===== */
+.shared-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--theme-empty-color);
+  background: var(--theme-empty-bg);
+  border-radius: var(--theme-border-radius);
+  margin: 20px 0;
+  border: 2px dashed var(--theme-empty-border);
+}
+
+.shared-empty-state p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ===== INPUTS ET FORMULAIRES - IDENTIQUE À COMMANDES ===== */
+.shared-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--theme-border-radius);
+  font-size: 15px;
+  font-weight: 500;
+  transition: var(--theme-transition);
+  background-color: var(--color-bg-card);
+  color: var(--color-text-secondary);
+  font-family: var(--theme-font-family);
+}
+
+.shared-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  transform: var(--theme-hover-scale);
+  background-color: var(--color-bg-card);
+}
+
+.shared-input--error {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  animation: themeShake 0.3s ease-in-out;
+}
+
+.shared-input::placeholder {
+  color: var(--theme-disabled-color);
+}
+
+.shared-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-family: var(--theme-font-family);
+  text-shadow: var(--theme-text-shadow);
+  transition: var(--theme-transition);
+}
+
+/* Animation d'erreur pour les champs */
+@keyframes themeShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .shared-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .shared-search-container {
+    min-width: unset;
+  }
+
+  .shared-action-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .shared-actions-container {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shared-card {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+/* ===== ACCESSIBILITÉ ===== */
+.shared-btn:focus,
+.shared-action-button:focus,
+.shared-search-input:focus,
+.shared-filter-select:focus {
+  outline: none;
+}
+
+.shared-btn:focus-visible,
+.shared-action-button:focus-visible {
+  box-shadow: var(--theme-focus-ring), 0 0 0 6px var(--theme-focus-ring-opacity);
+}
+
+/* Mode contraste élevé */
+@media (prefers-contrast: high) {
+  .shared-table th,
+  .shared-table td {
+    border: 2px solid var(--color-text-primary);
+  }
+
+  .shared-btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Réduction des animations pour les utilisateurs sensibles */
+@media (prefers-reduced-motion: reduce) {
+  .shared-card,
+  .shared-btn,
+  .shared-action-button,
+  .shared-search-input,
+  .shared-table tr {
+    transition: none;
+    animation: none;
+  }
+
+  .shared-btn:hover,
+  .shared-card:hover {
+    transform: none;
+  }
+}

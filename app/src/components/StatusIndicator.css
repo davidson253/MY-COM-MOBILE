@@ -1,0 +1,71 @@
+/* StatusIndicator.css - Styles pour le composant de statut réutilisable */
+
+.status-indicator {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Statut en cours d'édition (orange) */
+.status-indicator--editing {
+  background-color: #fed7aa !important;
+  color: #ea580c !important;
+  border: 1px solid #fdba74 !important;
+}
+
+/* Statut en cours de consultation (vert) */
+.status-indicator--viewing {
+  background-color: #bbf7d0 !important;
+  color: #16a34a !important;
+  border: 1px solid #86efac !important;
+}
+
+/* Animation d'apparition */
+.status-indicator {
+  animation: statusFadeIn var(--duration-normal) ease-in-out;
+}
+
+@keyframes statusFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-1 * var(--spacing-1)));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Variantes de taille */
+.status-indicator--small {
+  padding: calc(var(--spacing-1) / 2) calc(var(--spacing-2) - 2px);
+  font-size: 10px;
+}
+
+.status-indicator--large {
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+/* Effet pulse pour attirer l'attention */
+.status-indicator--pulse {
+  animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

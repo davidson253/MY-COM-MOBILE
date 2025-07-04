@@ -1,0 +1,259 @@
+/* Ticket de Caisse Styles */
+
+.ticket-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.ticket-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+}
+
+.ticket-header h3 {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.ticket-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ticket-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+}
+
+.ticket-btn.print {
+  background: var(--color-primary);
+  color: white;
+}
+
+.ticket-btn.print:hover {
+  background: var(--color-primary-dark);
+}
+
+.ticket-btn.close {
+  background: var(--color-danger);
+  color: white;
+}
+
+.ticket-btn.close:hover {
+  background: var(--color-danger-dark);
+}
+
+/* Ticket paper */
+.ticket-paper {
+  padding: 30px;
+  background: white;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #000;
+}
+
+.ticket-entreprise {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ticket-entreprise h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ticket-entreprise p {
+  margin: 4px 0;
+  font-size: 0.85em;
+}
+
+.ticket-separator {
+  border-top: 2px dashed #333;
+  margin: 15px 0;
+}
+
+.ticket-commande,
+.ticket-client {
+  margin-bottom: 15px;
+}
+
+.ticket-commande p,
+.ticket-client p {
+  margin: 4px 0;
+  font-size: 0.9em;
+}
+
+.ticket-articles h4 {
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.ticket-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.ticket-table th,
+.ticket-table td {
+  padding: 6px 4px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.8em;
+}
+
+.ticket-table th {
+  background: #f5f5f5;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.ticket-table .qte,
+.ticket-table .prix-unit,
+.ticket-table .total-ligne {
+  text-align: right;
+}
+
+.ticket-table .article-libelle {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ticket-totaux {
+  margin-top: 20px;
+}
+
+.ticket-totaux .total-ligne {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 0.9em;
+}
+
+.ticket-totaux .total-ttc {
+  border-top: 2px solid #333;
+  padding-top: 8px;
+  margin-top: 15px;
+  font-size: 1.1em;
+}
+
+.ticket-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.85em;
+}
+
+.ticket-footer p {
+  margin: 8px 0;
+}
+
+.ticket-date {
+  margin-top: 15px;
+  font-size: 0.8em;
+  color: #666;
+}
+
+/* Print styles */
+@media print {
+  .ticket-overlay {
+    position: static;
+    background: none;
+    display: block;
+    padding: 0;
+  }
+
+  .ticket-container {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .ticket-header {
+    display: none;
+  }
+
+  .ticket-paper {
+    padding: 0;
+    font-size: 12px;
+  }
+
+  .ticket-entreprise h2 {
+    font-size: 16px;
+  }
+
+  .ticket-table {
+    font-size: 11px;
+  }
+
+  .ticket-btn {
+    display: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ticket-overlay {
+    padding: 10px;
+  }
+
+  .ticket-paper {
+    padding: 20px;
+    font-size: 0.8em;
+  }
+
+  .ticket-table {
+    font-size: 0.7em;
+  }
+
+  .ticket-header {
+    padding: 15px;
+  }
+
+  .ticket-header h3 {
+    font-size: 1.1em;
+  }
+
+  .ticket-btn {
+    padding: 6px 12px;
+    font-size: 0.8em;
+  }
+}

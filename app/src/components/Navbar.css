@@ -1,0 +1,288 @@
+/* Navbar.css - Styles pour la barre de navigation utilisant les variables centralisées */
+
+.navbar {
+  width: var(--navbar-width, 220px);
+  height: 100vh;
+  background: var(--theme-navbar);
+  color: var(--text-inverse);
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: width var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
+  z-index: var(--z-navbar);
+  box-shadow: var(--shadow-lg);
+}
+
+.navbar--collapsed {
+  --navbar-width: 70px;
+}
+
+.navbar__logo {
+  padding: var(--spacing-lg);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.navbar__logo:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar__logo-text {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-inverse);
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+  white-space: nowrap;
+}
+
+.navbar--collapsed .navbar__logo-text {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar__toggle-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-inverse);
+  transition: var(--transition-normal);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.navbar__toggle-icon:hover {
+  transform: scale(1.1);
+}
+
+.navbar__link {
+  color: var(--text-inverse);
+  text-decoration: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.navbar--collapsed .navbar__link {
+  justify-content: center;
+  gap: 0;
+}
+
+.navbar__link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(4px);
+}
+
+.navbar--collapsed .navbar__link:hover {
+  transform: translateX(0) scale(1.1);
+}
+
+.navbar__link-icon {
+  font-size: var(--font-size-lg);
+  min-width: var(--font-size-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__link-text {
+  display: block;
+  white-space: nowrap;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+}
+
+.navbar--collapsed .navbar__link-text {
+  display: none;
+}
+
+.navbar__bottom {
+  margin-top: auto;
+}
+
+.navbar__theme-section {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.navbar--collapsed .navbar__theme-section {
+  padding: var(--spacing-md);
+  justify-content: center;
+}
+
+.navbar__theme-label {
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  align-self: flex-start;
+  transition: opacity var(--transition-normal);
+}
+
+.navbar--collapsed .navbar__theme-label {
+  display: none;
+}
+
+.navbar__logout {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: var(--color-red-400);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar--collapsed .navbar__logout {
+  justify-content: center;
+  gap: 0;
+}
+
+.navbar__logout:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+  transform: translateX(4px);
+}
+
+.navbar--collapsed .navbar__logout:hover {
+  transform: translateX(0) scale(1.1);
+}
+
+.navbar__logout-icon {
+  font-size: var(--font-size-lg);
+  min-width: var(--font-size-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__logout-text {
+  display: block;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity var(--transition-normal);
+}
+
+.navbar--collapsed .navbar__logout-text {
+  display: none;
+}
+
+/* Tooltip pour les éléments collapsed */
+.navbar--collapsed .navbar__link,
+.navbar--collapsed .navbar__logout {
+  position: relative;
+}
+
+.navbar--collapsed .navbar__link::after,
+.navbar--collapsed .navbar__logout::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-gray-900);
+  color: var(--text-inverse);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-fast);
+  margin-left: var(--spacing-md);
+  z-index: calc(var(--z-navbar) + 1);
+}
+
+.navbar--collapsed .navbar__link:hover::after,
+.navbar--collapsed .navbar__logout:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Animation pour le contenu qui apparaît/disparaît */
+@keyframes navbar-fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes navbar-fade-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+.navbar__link-text,
+.navbar__logout-text,
+.navbar__theme-label,
+.navbar__logo-text {
+  animation: navbar-fade-in var(--transition-normal);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar {
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+  }
+
+  .navbar--mobile-open {
+    transform: translateX(0);
+  }
+
+  .navbar--collapsed {
+    --navbar-width: 220px;
+  }
+
+  .navbar--collapsed .navbar__link-text,
+  .navbar--collapsed .navbar__logout-text,
+  .navbar--collapsed .navbar__theme-label,
+  .navbar--collapsed .navbar__logo-text {
+    display: block;
+    opacity: 1;
+  }
+
+  .navbar--collapsed .navbar__link {
+    justify-content: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .navbar--collapsed .navbar__logout {
+    justify-content: flex-start;
+    gap: var(--spacing-md);
+  }
+}
