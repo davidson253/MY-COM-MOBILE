@@ -10,12 +10,11 @@ import Register from "./pages/Register";
 import Articles from "./pages/Articles";
 import Commandes from "./pages/Commandes";
 
-import Clients from "./pages/Clients";
+import ClientsV2 from "./pages/ClientsV2";
 import Reglements from "./pages/Reglements";
 import Factures from "./pages/Factures";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import FormUITest from "./components/FormUITest";
 import { NavbarProvider } from "./contexts/NavbarContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import "./styles/themes.css";
@@ -151,7 +150,7 @@ export default function App() {
                 path="/clients"
                 element={
                   <ProtectedRoute>
-                    <Clients />
+                    <ClientsV2 />
                   </ProtectedRoute>
                 }
               />
@@ -168,14 +167,6 @@ export default function App() {
                 element={
                   <ProtectedRoute>
                     <Factures />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/test-forms"
-                element={
-                  <ProtectedRoute>
-                    <FormUITest />
                   </ProtectedRoute>
                 }
               />
