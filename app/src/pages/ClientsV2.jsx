@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles/SharedPageStyles.css";
 import { FaEye, FaEdit, FaTrash, FaPlus, FaUsers } from "react-icons/fa";
-import api from "../services/apiClient";
+import api from "../services/api";
 import UniversalFormV2 from "../components/shared/UniversalFormV2";
 import { useToast } from "../components/shared/Toast";
 import { CLIENT_FORM_CONFIG } from "../config/clientFormConfig";
@@ -139,7 +139,7 @@ const ClientsV2 = () => {
   const loadClients = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/clients");
+      const response = await api.getClients();
       setClients(response.data);
       setError(""); // Réinitialiser l'erreur en cas de succès
     } catch (err) {
@@ -210,7 +210,7 @@ const ClientsV2 = () => {
 
       if (editingClient) {
         // Mode édition
-        await api.put(`/clients/${editingClient.code}`, submitData);
+        await api.updateClient(editingClient.code, submitData);
         setClients((prevClients) =>
           prevClients.map((client) =>
             client.code === editingClient.code
@@ -226,7 +226,7 @@ const ClientsV2 = () => {
         );
       } else {
         // Mode création
-        const response = await api.post("/clients", submitData);
+        const response = await api.createClient(submitData);
         setClients((prevClients) => [...prevClients, response.data]);
         showToast(
           `Client "${submitData.rsoc || submitData.code}" créé avec succès`,
@@ -290,7 +290,7 @@ const ClientsV2 = () => {
     setLoading(true);
     setError("");
     try {
-      await api.delete(`/clients/${clientCode}`);
+      await api.deleteClient(clientCode);
       setClients((prevClients) =>
         prevClients.filter((client) => client.code !== clientCode)
       );

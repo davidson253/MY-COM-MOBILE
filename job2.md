@@ -46,21 +46,6 @@ WHERE codecli IN (SELECT code FROM client WHERE coderep = 'R001')
 
 ## 🚀 SUGGESTIONS D'AMÉLIORATIONS
 
-1. AJOUT DU MODULE FACTURE
-
-```
-// Nouvelle table facture basée sur ebcw
-CREATE TABLE facture (
-  numfact INT PRIMARY KEY,
-  datebc DATE,
-  ccl VARCHAR(10), // Code client
-  coderep VARCHAR(10), // Code représentant
-  matricule VARCHAR(20), // Matricule fiscal
-  mht DECIMAL(10,2),
-  mttc DECIMAL(10,2),
-  // ...autres champs
-);
-```
 
 2. FILTRAGE PAR REPRÉSENTANT
    Backend : Middleware qui filtre automatiquement par req.representant.code
@@ -120,14 +105,9 @@ PHASE 1 : Essentiel
 
 PHASE 2 : Fonctionnel
 🎫 Ticket de caisse
-📄 Module factures
-💰 Gestion crédit client
 
 PHASE 3 : Avancé
-🏦 Rapprochement bancaire
-📈 Tableaux de bord par représentant
 📱 Version mobile
-Voulez-vous qu'on commence par implémenter le filtrage par représentant et les champs manquants essentiels ?
 
 ---
 

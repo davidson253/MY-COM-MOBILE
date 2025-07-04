@@ -6,13 +6,10 @@ import {
 } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Articles from "./pages/Articles";
 import Commandes from "./pages/Commandes";
-
 import ClientsV2 from "./pages/ClientsV2";
 import Reglements from "./pages/Reglements";
-import Factures from "./pages/Factures";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import { NavbarProvider } from "./contexts/NavbarContext";
@@ -119,7 +116,6 @@ export default function App() {
           <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
               <Route path="/preview" element={<Navigate to="/" />} />
               <Route
                 path="/"
@@ -145,7 +141,6 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
-
               <Route
                 path="/clients"
                 element={
@@ -159,14 +154,6 @@ export default function App() {
                 element={
                   <ProtectedRoute>
                     <Reglements />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/factures"
-                element={
-                  <ProtectedRoute>
-                    <Factures />
                   </ProtectedRoute>
                 }
               />
