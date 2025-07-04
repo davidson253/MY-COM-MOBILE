@@ -1,8 +1,9 @@
 // Configuration des champs pour le formulaire article
-export const ARTICLE_FORM_CONFIG = [
-  {
-    title: "📦 Informations principales",
-    fields: [
+export const ARTICLE_FORM_CONFIG = {
+  groups: [
+    {
+      title: "📦 Informations principales",
+      fields: [
       {
         name: "code",
         label: "Code article",
@@ -196,4 +197,5 @@ export const ARTICLE_FORM_CONFIG = [
       },
     ],
   },
-];
+  ]
+};

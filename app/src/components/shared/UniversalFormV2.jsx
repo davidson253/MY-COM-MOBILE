@@ -213,13 +213,14 @@ const UniversalFormV2 = ({
   };
 
   // Rendu d'un champ individuel
-  const renderField = (field) => {
+  const renderField = (field, index) => {
     const fieldName = field.name || field.key;
+    const uniqueKey = `${fieldName}-${index || 0}`;
 
     switch (field.type) {
       case "textarea":
         return (
-          <div className="form-field" key={fieldName}>
+          <div className="form-field" key={uniqueKey}>
             <label className="form-label">
               {field.label}
               {field.required && <span className="required">*</span>}
@@ -242,7 +243,7 @@ const UniversalFormV2 = ({
 
       case "select":
         return (
-          <div className="form-field" key={fieldName}>
+          <div className="form-field" key={uniqueKey}>
             <label className="form-label">
               {field.label}
               {field.required && <span className="required">*</span>}
@@ -270,7 +271,7 @@ const UniversalFormV2 = ({
 
       case "checkbox":
         return (
-          <div className="form-field checkbox-field" key={fieldName}>
+          <div className="form-field checkbox-field" key={uniqueKey}>
             <div className="checkbox-container">
               <Field
                 type="checkbox"
@@ -293,7 +294,7 @@ const UniversalFormV2 = ({
 
       default:
         return (
-          <div className="form-field" key={fieldName}>
+          <div className="form-field" key={uniqueKey}>
             <label className="form-label">
               {field.label}
               {field.required && <span className="required">*</span>}
@@ -322,12 +323,16 @@ const UniversalFormV2 = ({
       return fields.groups.map((group, index) => (
         <div key={index} className="form-group">
           <h3 className="group-title">{group.title}</h3>
-          <div className="group-fields">{group.fields.map(renderField)}</div>
+          <div className="group-fields">
+            {group.fields.map((field, fieldIndex) =>
+              renderField(field, fieldIndex)
+            )}
+          </div>
         </div>
       ));
     } else {
       // Ancien format : champs directs
-      return fields.map(renderField);
+      return fields.map((field, index) => renderField(field, index));
     }
   };
 

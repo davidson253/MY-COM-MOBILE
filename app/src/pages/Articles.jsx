@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./styles/SharedPageStyles.css";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { FaEye, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import api from "../services/api";
+import UniversalFormV2 from "../components/shared/UniversalFormV2";
+import { useToast } from "../components/shared/Toast";
+import { ARTICLE_FORM_CONFIG } from "../config/articleFormConfig";
+import {
+  articleValidationSchema,
+  articleDefaultValues,
+} from "../validations/articleValidation";
 
 // Liste complète des champs de la table article (voir SQL)
 const ARTICLE_FIELDS = [
@@ -98,6 +105,12 @@ const Articles = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingArticle, setEditingArticle] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Hook pour les notifications
+  const { showToast, ToastContainer } = useToast();
 
   useEffect(() => {
     loadArticles();
@@ -149,6 +162,120 @@ const Articles = () => {
     }
   };
 
+  // Ouvrir le formulaire pour nouveau article
+  const handleAddArticle = () => {
+    setEditingArticle(null);
+    setIsFormOpen(true);
+  };
+
+  // Ouvrir le formulaire pour édition
+  const handleEditArticle = (article) => {
+    setEditingArticle(article);
+    setIsFormOpen(true);
+  };
+
+  // Préparer les valeurs initiales pour le formulaire
+  const getInitialValues = (article = null) => {
+    if (article) {
+      // Mode édition : utiliser les données de l'article existant
+      return {
+        ...articleDefaultValues,
+        ...article,
+        // Convertir les valeurs booléennes
+        serie: article.serie === "1",
+        balance: article.balance === "1",
+        affcaisse: article.affcaisse === "1",
+        defalcation: article.defalcation === "1",
+        enstock: article.enstock === "1",
+        inactif: article.inactif === "1",
+      };
+    } else {
+      // Mode création : utiliser les valeurs par défaut
+      const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+      return {
+        ...articleDefaultValues,
+        usera: userInfo.code || "",
+        libusera: userInfo.libelle || "",
+        datecreation: new Date().toISOString().split("T")[0],
+      };
+    }
+  };
+
+  // Gestionnaire de soumission du formulaire
+  const handleFormSubmit = async (values) => {
+    setIsSubmitting(true);
+
+    try {
+      // Préparer les données pour l'API
+      const submitData = {
+        ...values,
+        // Convertir les valeurs booléennes en string
+        serie: values.serie ? "1" : "0",
+        balance: values.balance ? "1" : "0",
+        affcaisse: values.affcaisse ? "1" : "0",
+        defalcation: values.defalcation ? "1" : "0",
+        enstock: values.enstock ? "1" : "0",
+        inactif: values.inactif ? "1" : "0",
+        // S'assurer que les champs numériques sont corrects
+        prixbrut: parseFloat(values.prixbrut) || 0,
+        remise: parseFloat(values.remise) || 0,
+        prixnet: parseFloat(values.prixnet) || 0,
+        tva: parseFloat(values.tva) || 0,
+        prixht: parseFloat(values.prixht) || 0,
+        prixttc: parseFloat(values.prixttc) || 0,
+        nbunite: parseFloat(values.nbunite) || 1,
+        qtemin: parseFloat(values.qtemin) || 0,
+        qtemax: parseFloat(values.qtemax) || 0,
+      };
+
+      if (editingArticle) {
+        // Mode édition
+        await api.updateArticle(editingArticle.code, submitData);
+        showToast(
+          `Article "${
+            submitData.libelle || editingArticle.code
+          }" modifié avec succès`,
+          "success"
+        );
+      } else {
+        // Mode création
+        await api.createArticle(submitData);
+        showToast(
+          `Article "${submitData.libelle || submitData.code}" créé avec succès`,
+          "success"
+        );
+      }
+
+      // Recharger la liste et fermer le formulaire
+      await loadArticles();
+      setIsFormOpen(false);
+      setEditingArticle(null);
+    } catch (error) {
+      console.error("Erreur lors de la soumission:", error);
+
+      // Afficher une notification d'erreur
+      let errorMessage = "Erreur lors de l'enregistrement de l'article";
+
+      // Gérer les erreurs spécifiques
+      if (error.message.includes("existe déjà")) {
+        errorMessage = "Un article avec ce code existe déjà";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      showToast(errorMessage, "error");
+      throw new Error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Fermer le formulaire
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setEditingArticle(null);
+  };
+
   // Colonnes pour affichage tableau simple
   const columns = [
     { key: "code", title: "Code" },
@@ -163,10 +290,19 @@ const Articles = () => {
 
   return (
     <div className="shared-page">
-      <h1>Articles</h1>
-      <button onClick={loadArticles} style={{ marginBottom: 16, padding: 8 }}>
-        🔄 Recharger
-      </button>
+      {/* En-tête */}
+      <div className="page-header">
+        <h1>Articles</h1>
+        <div className="page-actions">
+          <button onClick={handleAddArticle} className="btn btn-primary">
+            <FaPlus />
+            Nouvel article
+          </button>
+          <button onClick={loadArticles} className="btn btn-secondary">
+            🔄 Recharger
+          </button>
+        </div>
+      </div>
       {loading && <div>Chargement...</div>}
       {error && (
         <div style={{ color: "red", marginBottom: 16 }}>
@@ -214,9 +350,7 @@ const Articles = () => {
                           <>
                             <button
                               className="action-btn edit-btn"
-                              onClick={() =>
-                                alert(`Modifier article ${row.code}`)
-                              }
+                              onClick={() => handleEditArticle(row)}
                               title="Modifier"
                             >
                               <FaEdit style={{ verticalAlign: "middle" }} />
@@ -334,6 +468,26 @@ const Articles = () => {
           </div>
         </div>
       )}
+
+      {/* Formulaire avec UniversalFormV2 */}
+      <UniversalFormV2
+        isOpen={isFormOpen}
+        onClose={handleCloseForm}
+        onSubmit={handleFormSubmit}
+        title={editingArticle ? "Modifier l'article" : "Nouvel article"}
+        fields={ARTICLE_FORM_CONFIG}
+        initialValues={getInitialValues(editingArticle)}
+        validationSchema={articleValidationSchema}
+        isLoading={isSubmitting}
+        mode={editingArticle ? "edit" : "create"}
+        useDrawer={true}
+        submitButtonText={editingArticle ? "Modifier" : "Créer"}
+        closeOnOverlayClick={false}
+        confirmBeforeClose={true}
+      />
+
+      {/* Container de toasts pour les notifications */}
+      <ToastContainer />
     </div>
   );
 };
